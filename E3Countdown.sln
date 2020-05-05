@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E3Countdown", "E3Countdown\E3Countdown.csproj", "{CC27B457-8E65-45FB-BEB2-32F02BC56AA5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC27B457-8E65-45FB-BEB2-32F02BC56AA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC27B457-8E65-45FB-BEB2-32F02BC56AA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC27B457-8E65-45FB-BEB2-32F02BC56AA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC27B457-8E65-45FB-BEB2-32F02BC56AA5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {286D5079-7580-426E-8EDE-49D8FBDD2627}
+	EndGlobalSection
+EndGlobal
