@@ -4,9 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:E3Countdown"
+        xmlns:viewmodel="clr-namespace:E3Countdown.ViewModel"
+        xmlns:converters="clr-namespace:E3Countdown.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Loaded="MainWindow_OnLoaded" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Loaded="MainWindow_OnLoaded" WindowStartupLocation="CenterScreen" FontSize="16" Height="450" Width="800">
+    <Window.Resources>
+        <converters:ConferenceStateToColorConverter x:Key="StateToColor"></converters:ConferenceStateToColorConverter>
+    </Window.Resources>
+    <Window.DataContext>
+        <viewmodel:E3ViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <DataGrid ItemsSource="{Binding Conferences}" AutoGenerateColumns="False">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{Binding State, Converter={StaticResource StateToColor}}" />
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name, Mode=TwoWay}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата начала" Binding="{Binding StartTime, StringFormat={}{0:hh':'mm':'ss' 'dd'.'MM'.'yyyy}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата конца" Binding="{Binding EndTime, Mode=TwoWay, StringFormat={}{0:hh':'mm':'ss' 'dd'.'MM'.'yyyy}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Осталось" IsReadOnly="True" Binding="{Binding RestTime, StringFormat={}{0:hh':'mm':'ss}}">
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
 </Window>

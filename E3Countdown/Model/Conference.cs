@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DynamicData.Binding;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -24,7 +25,18 @@ namespace E3Countdown.Model
 
         private Conference()
         {
-            
+            this.WhenAnyValue(x => x.RestTime).Subscribe(_ => UpdateState());
+        }
+
+        private void UpdateState()
+        {
+            if (DateTime.Now < StartTime)
+                State = ConferenceState.DontStartedYet;
+            else if (DateTime.Now < EndTime)
+                State = ConferenceState.Started;
+            else
+                State = ConferenceState.Ended;
+            Console.WriteLine(State);
         }
         public Conference(string source) : this()
         {
@@ -45,6 +57,9 @@ namespace E3Countdown.Model
                 Convert.ToInt32(match.Groups["endminute"].Value),
                 0);
         }
+
+        [Reactive] public TimeSpan RestTime { get; set; }
+
         public Conference(string name, DateTime start, DateTime end) : this()
         {
             Name = name;
@@ -56,7 +71,7 @@ namespace E3Countdown.Model
         [Reactive] public string Name { get; set; }
         [Reactive] public DateTime StartTime { get; set; }
         [Reactive] public DateTime EndTime { get; set; }
-        [Reactive] public TimeSpan RestTime { get; set; }
-
+        
+        [Reactive] public ConferenceState State { get; set; }
     }
 }
