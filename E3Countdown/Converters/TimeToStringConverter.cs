@@ -18,13 +18,13 @@ namespace E3Countdown.Converters
             int minutes = source.Minutes;
             int seconds = source.Seconds;
             List<string> parts = new List<string>();
-            
+
             if (hours > 0)
-                parts.Append(GetWordCase(hours, "час", "часа", "часов"));
-            if(minutes > 0)
-                parts.Append(GetWordCase(minutes, "минута", "минуты", "минут"));
+                parts.Add(GetWordCase(hours, "час", "часа", "часов"));
+            if (minutes > 0)
+                parts.Add(GetWordCase(minutes, "минута", "минуты", "минут"));
             if (seconds > 0)
-                parts.Append(GetWordCase(hours, "секунда", "секунды", "секунд"));
+                parts.Add(GetWordCase(seconds, "секунда", "секунды", "секунд"));
             return string.Join(", ", parts);
         }
 
@@ -40,7 +40,7 @@ namespace E3Countdown.Converters
         {
             int lastdigit = num % 10;
             int prevdigit = num % 100 / 10;
-            if (prevdigit == 1 || lastdigit > 4) return $"{num} {case3}";
+            if (prevdigit == 1 || lastdigit > 4 || lastdigit == 0) return $"{num} {case3}";
             if (lastdigit == 1) return $"{num} {case1}";
             return $"{num} {case2}";
 

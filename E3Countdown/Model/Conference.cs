@@ -18,7 +18,7 @@ namespace E3Countdown.Model
         private static readonly Regex conferenceRegex = new Regex(
             @"(?<name>.+)\s+(?<startday>\d{2})\.(?<startmounth>\d{2})\.(?<startyear>\d{4})\s+(?<starthour>\d{2}):(?<startminute>\d{2})\s+\-\s+(?<endday>\d{2})\.(?<endmounth>\d{2})\.(?<endyear>\d{4})\s+(?<endhour>\d{2}):(?<endminute>\d{2})");
 
-        private Conference()
+        public Conference()
         {
             dontStarted = new DontStartedConferenceState(this);
             started = new StartedConferenceState(this);
@@ -47,6 +47,7 @@ namespace E3Countdown.Model
 
         public Conference(string source) : this()
         {
+            //EA 01.01.2020 10:23 - 02.02.2020 12:34 
             Match match = conferenceRegex.Match(source);
             Name = match.Groups["name"].Value;
             StartTime = new DateTime(

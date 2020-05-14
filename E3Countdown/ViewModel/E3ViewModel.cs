@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using E3Countdown.Model;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using E3Countdown.Commands;
+using Microsoft.Win32;
 
 namespace E3Countdown.ViewModel
 {
@@ -18,10 +20,10 @@ namespace E3Countdown.ViewModel
     {
         public E3ViewModel()
         {
-            Conferences.Add(new Conference("EA", DateTime.Now, DateTime.Now.AddMinutes(1)));
-            Conferences.Add(new Conference("Microsoft", DateTime.Now.AddMinutes(2), DateTime.Now.AddMinutes(3)));
-            Conferences.Add(new Conference("Ubisoft", DateTime.Now.AddMinutes(5), DateTime.Now.AddMinutes(6)));
-            Conferences.Add(new Conference("Sony", DateTime.Now.AddMinutes(7), DateTime.Now.AddMinutes(8)));
+            //Conferences.Add(new Conference("EA", DateTime.Now, DateTime.Now.AddMinutes(1)));
+            //Conferences.Add(new Conference("Microsoft", DateTime.Now.AddMinutes(2), DateTime.Now.AddMinutes(3)));
+            //Conferences.Add(new Conference("Ubisoft", DateTime.Now.AddMinutes(5), DateTime.Now.AddMinutes(6)));
+            //Conferences.Add(new Conference("Sony", DateTime.Now.AddMinutes(7), DateTime.Now.AddMinutes(8)));
         }
         [Reactive] public ObservableCollection<Conference> Conferences { get; set; } = new ObservableCollection<Conference>();
 
@@ -53,5 +55,24 @@ namespace E3Countdown.ViewModel
             source.StartTime = result.StartTime;
             source.EndTime = result.EndTime;
         }, _ => !(SelectedConference is null));
+
+        public VMCommand Load => new VMCommand((obj) =>
+        {
+            OpenFileDialog opening = new OpenFileDialog();
+            if (!opening.ShowDialog().Value) return;
+            string[] source = File.ReadAllLines(opening.FileName, Encoding.UTF8);
+            ObservableCollection<Conference> result = new ObservableCollection<Conference>();
+            foreach (string stringConference in source)
+                result.Add(new Conference(stringConference));
+            Conferences = result;
+        });
+
+        public VMCommand Save => new VMCommand((obj) =>
+        {
+            //EA 01.01.2020 10:23 - 02.02.2020 12:34 
+            SaveFileDialog saving = new SaveFileDialog();
+            if (!saving.ShowDialog().Value) return;
+            File.WriteAllLines(saving.FileName,Conferences.Select(conf=>$"{conf.Name} {conf.StartTime:dd.MM.yyyy HH:mm} - {conf.EndTime:dd.MM.yyyy HH:mm}"),Encoding.UTF8);
+        },_=>Conferences.Count!=0);
     }
 }

@@ -11,11 +11,18 @@
     <Window.Resources>
         <converters:ConferenceStateToColorConverter x:Key="StateToColor"></converters:ConferenceStateToColorConverter>
         <converters:ConferenceStateToVisibilityConverter x:Key="StateToVisibility"></converters:ConferenceStateToVisibilityConverter>
+        <converters:TimeToStringConverter x:Key="TimeToString"></converters:TimeToStringConverter>
     </Window.Resources>
     <Window.DataContext>
         <viewmodel:E3ViewModel/>
     </Window.DataContext>
     <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Загрузить" Command="{Binding Load}"></MenuItem>
+                <MenuItem Header="Сохранить" Command="{Binding Save}"></MenuItem>
+            </MenuItem>
+        </Menu>
         <DataGrid ItemsSource="{Binding Conferences}" SelectedItem="{Binding SelectedConference}" AutoGenerateColumns="False">
             <DataGrid.ContextMenu>
                 <ContextMenu>
@@ -36,9 +43,8 @@
                 <DataGridTextColumn Header="Дата начала" Binding="{Binding StartTime, StringFormat={}{0:HH':'mm dd'.'MM}, ConverterCulture=ru-RU}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Дата конца" Binding="{Binding EndTime, Mode=TwoWay, StringFormat={}{0:HH':'mm dd'.'MM}, ConverterCulture=ru-RU}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Описание" IsReadOnly="True" Binding="{Binding CurrentState}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Осталось" SortDirection="Ascending" IsReadOnly="True" Binding="{Binding RestTime, StringFormat={}{0:hh':'mm':'ss}}"/>
+                <DataGridTextColumn Header="Осталось" SortDirection="Ascending" IsReadOnly="True" Binding="{Binding RestTime, Converter={StaticResource TimeToString}}"/>
             </DataGrid.Columns>
-
         </DataGrid>
     </DockPanel>
 </Window>
