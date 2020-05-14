@@ -15,6 +15,10 @@ namespace E3Countdown.Model.ConferenceStates
         public override void Update()
         {
             attachedConference.RestTime = attachedConference.StartTime - DateTime.Now;
+            if(attachedConference.RestTime.Hours==0 && 
+               attachedConference.RestTime.Minutes==0 && 
+               attachedConference.RestTime.Seconds==30)
+                StaticFuncs.showBalloon($"Конференция {attachedConference.Name}",$"Начало через {StaticFuncs.GetTimeRest(attachedConference.RestTime)}");
         }
     }
 }

@@ -14,7 +14,7 @@ namespace E3Countdown.Model.ConferenceStates
 
         public override void Update()
         {
-            attachedConference.RestTime = DateTime.Now - attachedConference.EndTime;
+            //attachedConference.RestTime = DateTime.Now - attachedConference.EndTime;
         }
     }
 }

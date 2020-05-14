@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:E3Countdown"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        
     </Application.Resources>
 </Application>

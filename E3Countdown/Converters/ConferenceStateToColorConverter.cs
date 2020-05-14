@@ -21,13 +21,10 @@ namespace E3Countdown.Converters
             {
                 case DontStartedConferenceState _:
                     return new SolidColorBrush(Colors.DarkGreen);
-                    break;
                 case StartedConferenceState _:
                     return new SolidColorBrush(Colors.CornflowerBlue);
-                    break;
                 case EndedConferenceState _:
                     return new SolidColorBrush(Colors.DarkGray);
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

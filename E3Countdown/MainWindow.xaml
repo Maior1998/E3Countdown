@@ -7,7 +7,7 @@
         xmlns:viewmodel="clr-namespace:E3Countdown.ViewModel"
         xmlns:converters="clr-namespace:E3Countdown.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" WindowStartupLocation="CenterScreen" FontSize="18" Height="265" Width="540">
+        Title="Расписание Е3" Icon="/Icons/calendar.png" WindowStartupLocation="CenterScreen" FontSize="18" Height="265" Width="540">
     <Window.Resources>
         <converters:ConferenceStateToColorConverter x:Key="StateToColor"></converters:ConferenceStateToColorConverter>
         <converters:ConferenceStateToVisibilityConverter x:Key="StateToVisibility"></converters:ConferenceStateToVisibilityConverter>
