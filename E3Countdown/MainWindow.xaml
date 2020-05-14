@@ -7,7 +7,7 @@
         xmlns:viewmodel="clr-namespace:E3Countdown.ViewModel"
         xmlns:converters="clr-namespace:E3Countdown.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" WindowStartupLocation="CenterScreen" FontSize="16" Height="265" Width="540">
+        Title="MainWindow" WindowStartupLocation="CenterScreen" FontSize="18" Height="265" Width="540">
     <Window.Resources>
         <converters:ConferenceStateToColorConverter x:Key="StateToColor"></converters:ConferenceStateToColorConverter>
         <converters:ConferenceStateToVisibilityConverter x:Key="StateToVisibility"></converters:ConferenceStateToVisibilityConverter>
@@ -17,13 +17,98 @@
         <viewmodel:E3ViewModel/>
     </Window.DataContext>
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
+        <Menu DockPanel.Dock="Top" FontSize="18">
             <MenuItem Header="Файл">
-                <MenuItem Header="Загрузить" Command="{Binding Load}"></MenuItem>
-                <MenuItem Header="Сохранить" Command="{Binding Save}"></MenuItem>
+                <MenuItem Header="Загрузить"  Command="{Binding Load}">
+                    <MenuItem.Icon>
+                        <Viewbox>
+                            <Grid>
+                                <Rectangle Fill="#f7cc38" Height="368" RadiusX="32" RadiusY="32" Margin="88,112,0,0" Width="400" ></Rectangle>
+                                <Path Fill="#fbe36a" Data="m456 480h-400a32 32 0 0 1 -32-32v-368a32 32 0 0 1 32-32h112a32 32 0 0 1 32 32v96h192a32 32 0 0 1 32 32v240a32 32 0 0 0 32 32z"/>
+                                <Path Fill="#f79539" Data="m440 32c-104.4 0-192 87.148-192 192h-48l80 80 88-80h-56c0-104.852 79.881-192 128-192z"/>
+                            </Grid>
+                        </Viewbox>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Сохранить" Command="{Binding Save}">
+                    <MenuItem.Icon>
+                        <Viewbox Stretch="Uniform">
+                            <Canvas Width="58" Height="58">
+                                <Canvas.RenderTransform>
+                                    <TranslateTransform X="0" Y="0"/>
+                                </Canvas.RenderTransform>
+                                <Canvas.Resources/>
+                                <Canvas>
+                                    <Canvas>
+                                        <Path Name="Shape" Fill="#FFF0C419">
+                                            <Path.Data>
+                                                <PathGeometry Figures="m58 19v29c0 3.3137085-2.6862915 6-6 6h-46c-3.3137085 0-6-2.6862915-6-6v-44c0-2.209139 1.790861-4 4-4h22c2.209139 0 4 1.790861 4 4v2h18c2.209139 0 4 1.790861 4 4v3c3.3116533.0049563 5.9950437 2.6883467 6 6z" FillRule="NonZero"/>
+                                            </Path.Data>
+                                        </Path>
+                                        <Path Fill="#FFF29C1F">
+                                            <Path.Data>
+                                                <PathGeometry Figures="m52 10v3h-52v-9c0-2.209139 1.790861-4 4-4h22c2.209139 0 4 1.790861 4 4v2h18c2.209139 0 4 1.790861 4 4z" FillRule="NonZero"/>
+                                            </Path.Data>
+                                        </Path>
+                                        <Path Fill="#FFE57E25">
+                                            <Path.Data>
+                                                <PathGeometry Figures="m18 13h-4c-.5522847 0-1-.4477153-1-1s.4477153-1 1-1h4c.5522847 0 1 .4477153 1 1s-.4477153 1-1 1z" FillRule="NonZero"/>
+                                            </Path.Data>
+                                        </Path>
+                                        <Path Fill="#FFE57E25">
+                                            <Path.Data>
+                                                <PathGeometry Figures="m52 11v2h-29c-.5522847 0-1-.4477153-1-1s.4477153-1 1-1z" FillRule="NonZero"/>
+                                            </Path.Data>
+                                        </Path>
+                                        <Rectangle Canvas.Top="26" Width="32" Height="32" RadiusX="2" RadiusY="2" Name="Rectanglepath" Fill="#FF35495E"/>
+                                        <Path Fill="#FFBDC3C7">
+                                            <Path.Data>
+                                                <PathGeometry Figures="m13 36h-6c-1.10320187-.0032948-1.9967052-.8967981-2-2v-8h6v8c.0032948 1.1032019.8967981 1.9967052 2 2z" FillRule="NonZero"/>
+                                            </Path.Data>
+                                        </Path>
+                                        <Path Fill="#FFECF0F1">
+                                            <Path.Data>
+                                                <PathGeometry Figures="m27 26v8c-.0032948 1.1032019-.8967981 1.9967052-2 2h-12c-1.1032019-.0032948-1.9967052-.8967981-2-2v-8z" FillRule="NonZero"/>
+                                            </Path.Data>
+                                        </Path>
+                                        <Ellipse Canvas.Left="11" Canvas.Top="40" Width="10" Height="10" Name="Oval" Fill="#FFBDC3C7"/>
+                                        <Path Fill="#FFBDC3C7">
+                                            <Path.Data>
+                                                <PathGeometry Figures="m6 54h20c.5522847 0 1 .4477153 1 1v3h-22v-3c0-.5522847.44771525-1 1-1z" FillRule="NonZero"/>
+                                            </Path.Data>
+                                        </Path>
+                                        <Ellipse Canvas.Left="14" Canvas.Top="43" Width="2" Height="2" Name="circle62" Fill="#FFECF0F1"/>
+                                        <Canvas >
+                                            <Path Fill="#FFE57E25">
+                                                <Path.Data>
+                                                    <PathGeometry Figures="m42 32h-5c-.5522847 0-1-.4477153-1-1s.4477153-1 1-1h5c.5522847 0 1 .4477153 1 1s-.4477153 1-1 1z" FillRule="NonZero"/>
+                                                </Path.Data>
+                                            </Path>
+                                            <Path Fill="#FFE57E25">
+                                                <Path.Data>
+                                                    <PathGeometry Figures="m50 39h-13c-.5522847 0-1-.4477153-1-1s.4477153-1 1-1h13c.5522847 0 1 .4477153 1 1s-.4477153 1-1 1z" FillRule="NonZero"/>
+                                                </Path.Data>
+                                            </Path>
+                                            <Path Fill="#FFE57E25">
+                                                <Path.Data>
+                                                    <PathGeometry Figures="m54 46h-2c-.5522847 0-1-.4477153-1-1s.4477153-1 1-1h2c.5522847 0 1 .4477153 1 1s-.4477153 1-1 1z" FillRule="NonZero"/>
+                                                </Path.Data>
+                                            </Path>
+                                            <Path Fill="#FFE57E25">
+                                                <Path.Data>
+                                                    <PathGeometry Figures="m48 46h-11c-.5522847 0-1-.4477153-1-1s.4477153-1 1-1h11c.5522847 0 1 .4477153 1 1s-.4477153 1-1 1z" FillRule="NonZero"/>
+                                                </Path.Data>
+                                            </Path>
+                                        </Canvas>
+                                    </Canvas>
+                                </Canvas>
+                            </Canvas>
+                        </Viewbox>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
-        <DataGrid ItemsSource="{Binding Conferences}" SelectedItem="{Binding SelectedConference}" AutoGenerateColumns="False">
+        <DataGrid ItemsSource="{Binding Conferences}" CanUserAddRows="False" CanUserDeleteRows="False" SelectedItem="{Binding SelectedConference}" AutoGenerateColumns="False">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить конференцию" Command="{Binding AddConference}"></MenuItem>
