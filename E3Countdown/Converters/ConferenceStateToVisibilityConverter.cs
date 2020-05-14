@@ -4,32 +4,25 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
-using System.Windows.Forms;
 using System.Windows.Media;
 using E3Countdown.Model;
 using E3Countdown.Model.ConferenceStates;
 
 namespace E3Countdown.Converters
 {
-    public class ConferenceStateToColorConverter : IValueConverter
+    public class ConferenceStateToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is ConferenceState state)) return new SolidColorBrush(Colors.Black);
+            if (!(value is ConferenceState state)) return Visibility.Visible;
             switch (state)
             {
-                case DontStartedConferenceState _:
-                    return new SolidColorBrush(Colors.DarkGreen);
-                    break;
-                case StartedConferenceState _:
-                    return new SolidColorBrush(Colors.CornflowerBlue);
-                    break;
                 case EndedConferenceState _:
-                    return new SolidColorBrush(Colors.DarkGray);
-                    break;
+                    return Visibility.Collapsed;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    return Visibility.Visible;
             }
         }
 

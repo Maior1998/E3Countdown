@@ -7,27 +7,38 @@
         xmlns:viewmodel="clr-namespace:E3Countdown.ViewModel"
         xmlns:converters="clr-namespace:E3Countdown.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Loaded="MainWindow_OnLoaded" WindowStartupLocation="CenterScreen" FontSize="16" Height="450" Width="800">
+        Title="MainWindow" WindowStartupLocation="CenterScreen" FontSize="16" Height="265" Width="540">
     <Window.Resources>
         <converters:ConferenceStateToColorConverter x:Key="StateToColor"></converters:ConferenceStateToColorConverter>
+        <converters:ConferenceStateToVisibilityConverter x:Key="StateToVisibility"></converters:ConferenceStateToVisibilityConverter>
     </Window.Resources>
     <Window.DataContext>
         <viewmodel:E3ViewModel/>
     </Window.DataContext>
     <DockPanel>
-        <DataGrid ItemsSource="{Binding Conferences}" AutoGenerateColumns="False">
+        <DataGrid ItemsSource="{Binding Conferences}" SelectedItem="{Binding SelectedConference}" AutoGenerateColumns="False">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить конференцию" Command="{Binding AddConference}"></MenuItem>
+                    <MenuItem Header="Изменить конференцию" Command="{Binding EditConference}" CommandParameter="{Binding SelectedConference}"></MenuItem>
+                    <MenuItem Header="Удалить конференцию" Command="{Binding RemoveConference}" CommandParameter="{Binding SelectedConference}"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
-                    <Setter Property="Background" Value="{Binding State, Converter={StaticResource StateToColor}}" />
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="Background" Value="{Binding CurrentState, Converter={StaticResource StateToColor}}" />
+                    <Setter Property="Visibility" Value="{Binding CurrentState, Converter={StaticResource StateToVisibility}}"></Setter>
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name, Mode=TwoWay}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Дата начала" Binding="{Binding StartTime, StringFormat={}{0:hh':'mm':'ss' 'dd'.'MM'.'yyyy}}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Дата конца" Binding="{Binding EndTime, Mode=TwoWay, StringFormat={}{0:hh':'mm':'ss' 'dd'.'MM'.'yyyy}}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Осталось" IsReadOnly="True" Binding="{Binding RestTime, StringFormat={}{0:hh':'mm':'ss}}">
-                </DataGridTextColumn>
+                <DataGridTextColumn Header="Дата начала" Binding="{Binding StartTime, StringFormat={}{0:HH':'mm dd'.'MM}, ConverterCulture=ru-RU}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата конца" Binding="{Binding EndTime, Mode=TwoWay, StringFormat={}{0:HH':'mm dd'.'MM}, ConverterCulture=ru-RU}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Описание" IsReadOnly="True" Binding="{Binding CurrentState}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Осталось" SortDirection="Ascending" IsReadOnly="True" Binding="{Binding RestTime, StringFormat={}{0:hh':'mm':'ss}}"/>
             </DataGrid.Columns>
+
         </DataGrid>
     </DockPanel>
 </Window>

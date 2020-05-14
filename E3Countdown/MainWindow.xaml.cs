@@ -26,9 +26,5 @@ namespace E3Countdown
         {
             InitializeComponent();
         }
-
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }

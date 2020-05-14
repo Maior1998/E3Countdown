@@ -10,6 +10,7 @@ using DynamicData.Binding;
 using E3Countdown.Model;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using E3Countdown.Commands;
 
 namespace E3Countdown.ViewModel
 {
@@ -17,40 +18,40 @@ namespace E3Countdown.ViewModel
     {
         public E3ViewModel()
         {
-            Conferences.Add(new Conference("EA",DateTime.Now, DateTime.Now.AddMinutes(1)));
+            Conferences.Add(new Conference("EA", DateTime.Now, DateTime.Now.AddMinutes(1)));
             Conferences.Add(new Conference("Microsoft", DateTime.Now.AddMinutes(2), DateTime.Now.AddMinutes(3)));
             Conferences.Add(new Conference("Ubisoft", DateTime.Now.AddMinutes(5), DateTime.Now.AddMinutes(6)));
             Conferences.Add(new Conference("Sony", DateTime.Now.AddMinutes(7), DateTime.Now.AddMinutes(8)));
-
-            Observable.Interval(TimeSpan.FromMilliseconds(1000))
-                .Subscribe(x =>{ UpdateTime(); });
-
-
-            Conferences.ToObservableChangeSet()
-                .WhenAnyPropertyChanged(nameof(Conference.StartTime), nameof(Conference.EndTime))
-                .Subscribe(_ => UpdateTime());
         }
         [Reactive] public ObservableCollection<Conference> Conferences { get; set; } = new ObservableCollection<Conference>();
 
-        private void UpdateTime()
-        {
-            foreach (Conference conference in Conferences)
-            {
-                if (DateTime.Now < conference.StartTime)
-                {
-                    conference.RestTime = conference.StartTime - DateTime.Now;
-                }
-                else if (DateTime.Now < conference.EndTime)
-                {
-                    conference.RestTime = conference.EndTime - DateTime.Now;
-                }
-                else
-                {
-                    conference.RestTime = DateTime.Now - conference.EndTime;
-                }
+        [Reactive] public Conference SelectedConference { get; set; }
 
-                //Console.WriteLine($"{conference.Name} - {conference.RestTime}");
-            }
-        }
+        
+        public VMCommand RemoveConference => new VMCommand(
+            (obj) =>
+            {
+                if (!(obj is Conference)) return;
+                Conferences.Remove((Conference)obj);
+            }, _ => !(SelectedConference is null));
+
+        public VMCommand AddConference => new VMCommand((obj) =>
+        {
+            EditConferenceWindow editConferenceWindow = new EditConferenceWindow();
+            Conference result = editConferenceWindow.ShowDialog(null);
+            if (result is null) return;
+            Conferences.Add(result);
+        });
+
+        public VMCommand EditConference => new VMCommand((obj) =>
+        {
+            if (!(obj is Conference source)) return;
+            EditConferenceWindow editConferenceWindow = new EditConferenceWindow();
+            Conference result = editConferenceWindow.ShowDialog(source);
+            if (result is null) return;
+            source.Name = result.Name;
+            source.StartTime = result.StartTime;
+            source.EndTime = result.EndTime;
+        }, _ => !(SelectedConference is null));
     }
 }
